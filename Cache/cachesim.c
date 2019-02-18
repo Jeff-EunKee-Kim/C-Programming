@@ -125,5 +125,4 @@ int main(int argc, char* argv[]) {
   }
   fclose(tracefile);
   return 0;
-  // Did not free the malloc as it was not a requirement
 }
