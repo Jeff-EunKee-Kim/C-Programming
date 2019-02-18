@@ -3,10 +3,6 @@
 #include <assert.h> // needed for asserts
 #include "dmm.h"
 
-/* You can improve the below metadata structure using the concepts from Bryant
- * and OHallaron book (chapter 9).
- */
-
 typedef struct metadata {
   /* size_t is the return type of the sizeof operator. Since the size of an
    * object depends on the architecture and its implementation, size_t is used
@@ -33,8 +29,6 @@ void* dmalloc(size_t numbytes) {
   }
 
   assert(numbytes > 0);
-
-  /* your code here */
 
   numbytes = ALIGN(numbytes);
   metadata_t* header = freelist;
@@ -78,7 +72,6 @@ void* dmalloc(size_t numbytes) {
 }
 
 void dfree(void* ptr) {
-  /* your code here */
   ptr -= METADATA_T_ALIGNED;
   metadata_t* header = (metadata_t*) ptr;
   header->unalloc = true;
@@ -102,24 +95,11 @@ void dfree(void* ptr) {
 }
 
 bool dmalloc_init() {
-
-  /* Two choices:
-   * 1. Append prologue and epilogue blocks to the start and the
-   * end of the freelist
-   *
-   * 2. Initialize freelist pointers to NULL
-   *
-   * Note: We provide the code for 2. Using 1 will help you to tackle the
-   * corner cases succinctly.
-   */
-
   size_t max_bytes = ALIGN(MAX_HEAP_SIZE);
   /* returns heap_region, which is initialized to freelist */
   freelist = (metadata_t*) mmap(NULL, max_bytes, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
   // freelist = (metadata_t*) sbrk(max_bytes); // returns heap_region, which is initialized to freelist
 
-
-  /* Q: Why casting is used? i.e., why (void*)-1? */
   if (freelist == (void *)-1)
     return false;
   freelist->next = NULL;
