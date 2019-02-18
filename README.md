@@ -1,2 +1,2 @@
 # C-Programming
-Includes programs in C and C++
+Includes projects in C and C++
