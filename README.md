@@ -1,2 +1,2 @@
 # C-Programming
-Programs in C and C++
+Includes assignments for school in C and C++
